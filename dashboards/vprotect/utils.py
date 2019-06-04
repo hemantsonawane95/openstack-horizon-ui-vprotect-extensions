@@ -89,7 +89,7 @@ def create_policy(name, auto_remove_non_present, vm_guids, fail_remaining_backup
     return login().post(VPROTECT_API_URL + "/policies/vm-backup", data=json.dumps(payload), headers=headers)
 
 def fetch_policies():
-    return __sanitize_policies(login().get(VPROTECT_API_URL + "/policies/vm-backup"))
+    return [(policy['guid'], policy['name']) for policy in login().get(VPROTECT_API_URL + "/policies/vm-backup").json()]
 
 def fetch_policies_not_sanitized(): #TODO
     return login().get(VPROTECT_API_URL + "/policies/vm-backup").json()
@@ -102,17 +102,6 @@ def fetch_policies_by_rules(schedule_rules):
 
 def rules_in_policy(policy):
     return list(map(lambda x: x['guid'], policy['rules']))
-
-
-def __sanitize_policies(response):
-    # TODO handle 401 somewhere
-    policies = []
-    for policy in response.json():
-        policies.append((policy['guid'], '%(name)s (%(guid)s)'
-                                    % {"name": policy['name'], "guid": policy['guid']}))
-    if not policies:
-        policies.insert(0, ("", _("No policies available")))
-    return policies
 
 def create_schedule(data):
     headers = {'content-type': 'application/json'}
