@@ -68,7 +68,7 @@ def __sanitize_backup_destinations(response):
     return backup_destinations
 
 def fetch_schedules(request):
-    return login().get(VPROTECT_API_URL + "/schedules?type=VM_BACKUP&project-id=" + request.user.tenant_id).json()
+    return login().get(VPROTECT_API_URL + "/schedules?type=VM_BACKUP&tenant-id=" + request.user.tenant_id).json()
 
 def fetch_schedule(guid):
     return login().get(VPROTECT_API_URL + "/schedules/" + guid).json()
@@ -132,7 +132,7 @@ def fetch_rules_for_policy(policy_guid):
     return rules
 
 def fetch_tasks(request):
-    return login().get(VPROTECT_API_URL + "/tasks?project-id=" + request.user.tenant_id)
+    return login().get(VPROTECT_API_URL + "/tasks?tenant-id=" + request.user.tenant_id)
 
 def convert_date_to_long(data):
     time_of_the_day = datetime.strptime(data.isoformat(), '%H:%M:%S')

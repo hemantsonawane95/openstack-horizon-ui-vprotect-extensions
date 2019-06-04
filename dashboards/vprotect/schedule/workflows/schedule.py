@@ -222,7 +222,7 @@ class Schedule(workflows.Workflow):
                         "hour": time_of_the_day,
                         "interval" : interval,
                         "months" : months,
-                        "projectId": self.request.user.tenant_id}
+                        "tenantId": self.request.user.tenant_id}
             schedule = utils.create_schedule(json.dumps(payload))
             messages.success(request, 'Added schedule "%s".' % schedule.json()['name'])
             return schedule

@@ -28,7 +28,7 @@ class Restore(forms.SelfHandlingForm):
                         "dstProtectedEntity" :  {"guid" : vm_guid, "type" : "VM" },
                         "hypervisorManager": { "guid" : hypervisor_manager[0]['guid'] },
                         "restoredPeName" : restored_name,
-                        "projectId" : self.request.user.tenant_id}
+                        "tenantId" : self.request.user.tenant_id}
             restore_and_import_task = utils.create_restore_and_import_task(payload)
             messages.success(request, self.success_message % restore_and_import_task.json()['dstProtectedEntity']['name'])
             return restore_and_import_task

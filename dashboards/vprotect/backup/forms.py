@@ -29,7 +29,7 @@ class Backup(forms.SelfHandlingForm):
             payload = { "backupType" : backup_type,
                         "backupDestination" : { "guid" : backup_destination},
                         "protectedEntities" : [ {"guid" : vm_guid} ],
-                        "projectId" : request.user.tenant_id}
+                        "tenantId" : request.user.tenant_id}
             export_task = utils.create_export_task(payload)
             messages.success(request, self.success_message % self.kwargs['initial']['instance']['name'] )
             return export_task
