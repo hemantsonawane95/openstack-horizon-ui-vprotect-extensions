@@ -89,7 +89,11 @@ def create_policy(name, auto_remove_non_present, vm_guids, fail_remaining_backup
     return login().post(VPROTECT_API_URL + "/policies/vm-backup", data=json.dumps(payload), headers=headers)
 
 def fetch_policies():
-    return [(policy['guid'], policy['name']) for policy in login().get(VPROTECT_API_URL + "/policies/vm-backup").json()]
+    response = login().get(VPROTECT_API_URL + "/policies/vm-backup")
+    try:
+        return [(policy['guid'], policy['name']) for policy in response.json()]
+    except JSONDecodeError:
+        return []
 
 def fetch_policies_not_sanitized(): #TODO
     return login().get(VPROTECT_API_URL + "/policies/vm-backup").json()
