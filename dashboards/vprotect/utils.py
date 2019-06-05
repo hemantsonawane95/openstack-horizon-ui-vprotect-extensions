@@ -131,7 +131,7 @@ def fetch_tasks(request):
     return login().get(VPROTECT_API_URL + "/tasks?tenant-id=" + request.user.tenant_id)
 
 def convert_date_to_long(data):
-    time_of_the_day = datetime.strptime(data.isoformat(), '%H:%M:%S')
+    time_of_the_day = datetime.datetime.strptime(data.isoformat(), '%H:%M:%S')
     return time_of_the_day.replace(year=time_of_the_day.year + 70).timestamp() * 1000
 
 def fetch_rules_for_policies(policy_guids):
