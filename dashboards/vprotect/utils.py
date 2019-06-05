@@ -8,12 +8,15 @@ from horizon.utils import functions as horizon_utils
 import pytz
 import yaml
 
-VPROTECT_API_URL = yaml.load(open('openstack_dashboard/dashboards/vprotect/config.yaml', 'r'))['REST_API_URL']
+CONFIG = yaml.load(open('openstack_dashboard/dashboards/vprotect/config.yaml', 'r'))
+VPROTECT_API_URL = CONFIG['REST_API_URL']
+USER = CONFIG['USER']
+PASSWORD = CONFIG['PASSWORD']
 
 def login():
     payload = {
-        "login": "admin",
-        "password": "vPr0tect"
+        "login": CONFIG['USER'],
+        "password": CONFIG['PASSWORD']
     }
     headers = {'content-type': 'application/json'}
     session = requests.Session()
