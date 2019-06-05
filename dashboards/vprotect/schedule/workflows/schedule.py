@@ -168,12 +168,16 @@ from dashboards.vprotect import utils
 
 
 class SetPoliciesAction(workflows.Action):
-    policies = utils.fetch_policies()
-    policiesChoices = [(policy[0], policy[1]) for policy in policies]
-    policies = forms.MultipleChoiceField(label=_("Choose policies"), required=False,widget=forms.CheckboxSelectMultiple, choices = policiesChoices)
+    policies = forms.MultipleChoiceField(label=_("Choose policies"), required=False,widget=forms.CheckboxSelectMultiple)
 
     class Meta(object):
         name = _("Policies")
+
+    def __init__(self, request, context, *args, **kwargs):
+        super(SetPoliciesAction, self).__init__(request, context, *args,
+                                             **kwargs)
+        policies_choices = [(policy[0], policy[1]) for policy in utils.fetch_policies(request)]
+        self.fields['policies'].choices = policies_choices
 
 class SetPoliciesStep(workflows.Step):
     action_class = SetPoliciesAction

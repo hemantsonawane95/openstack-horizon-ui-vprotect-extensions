@@ -35,7 +35,7 @@ class ScheduleView(workflows.WorkflowView):
 
     def get_initial(self):
         backup_destinations = utils.fetch_backup_destinations()
-        policies = utils.fetch_policies()
+        policies = utils.fetch_policies(self.request)
         return {"backup_destinations": backup_destinations, "policies" : policies}
 
 class EditScheduleView(workflows.WorkflowView):
@@ -67,7 +67,7 @@ class EditScheduleView(workflows.WorkflowView):
                 'name' : schedule['name'],
                 'rules' : schedule['rules'],
                 'start_window_length' : int(schedule['startWindowLength'] / 60000),
-                'policies' : [policy['guid'] for policy in utils.fetch_policies_by_rules(schedule['rules'])],
+                'policies' : [policy['guid'] for policy in utils.fetch_policies_by_rules(self.request, schedule['rules'])],
                 'type' : schedule['type']
                 }
         return data

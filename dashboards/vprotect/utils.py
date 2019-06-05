@@ -86,19 +86,19 @@ def create_policy(data):
     headers = {'content-type': 'application/json'}
     return login().post(VPROTECT_API_URL + "/policies/vm-backup", data=json.dumps(data), headers=headers)
 
-def fetch_policies():
-    response = login().get(VPROTECT_API_URL + "/policies/vm-backup")
+def fetch_policies(request):
+    response = login().get(VPROTECT_API_URL + "/policies/vm-backup?tenant-id=" + request.user.tenant_id)
     try:
         return [(policy['guid'], policy['name']) for policy in response.json()]
     except JSONDecodeError:
         return []
 
-def fetch_policies_not_sanitized(): #TODO
-    return login().get(VPROTECT_API_URL + "/policies/vm-backup").json()
+def fetch_policies_not_sanitized(request): #TODO
+    return login().get(VPROTECT_API_URL + "/policies/vm-backup?tenant-id=" + request.user.tenant_id).json()
 
-def fetch_policies_by_rules(schedule_rules):
+def fetch_policies_by_rules(request, schedule_rules):
     rules = list(map(lambda sch: sch['guid'], schedule_rules))
-    policies = fetch_policies_not_sanitized()
+    policies = fetch_policies_not_sanitized(request)
     return list(filter(lambda policy: any(x in rules_in_policy(policy) for x in rules), policies))
 
 
