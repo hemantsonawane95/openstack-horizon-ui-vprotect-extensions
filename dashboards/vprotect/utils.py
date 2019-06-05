@@ -40,7 +40,7 @@ def fetch_backups_for_vm(guid):
     backups = []
     for backup in json:
         backups.append((backup['guid'], '%(backupTime)s (%(guid)s)'
-                                    % {"backupTime": datetime.fromtimestamp(backup['backupTime'] / 1000).strftime('%Y-%m-%d %H:%M:%S'), "guid": backup['guid']}))
+                                    % {"backupTime": datetime.datetime.fromtimestamp(backup['backupTime'] / 1000).strftime('%Y-%m-%d %H:%M:%S'), "guid": backup['guid']}))
     if not backups:
         backups.insert(0, ("", _("No backups available")))
 
