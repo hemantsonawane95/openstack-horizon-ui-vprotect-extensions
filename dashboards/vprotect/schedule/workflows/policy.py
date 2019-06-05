@@ -107,11 +107,13 @@ class Policy(workflows.Workflow):
 
 
     def create_policy(self, data):
-        policy_name = data['name']
-        auto_remove_non_present_vms = data['auto_remove_absent_vms']
-        ves = list(itertools.chain(data['ves']))
-        fail_remaining_backup_tasks_export_enabled = data['fail_remaining_backup_tasks_export_enabled']
-        fail_remaining_backup_tasks_store_enabled = data['fail_remaining_backup_tasks_store_enabled']
-        return utils.create_policy(policy_name, auto_remove_non_present_vms, ves, fail_remaining_backup_tasks_export_enabled, fail_remaining_backup_tasks_store_enabled)
+        data = {"name" : data['name'],
+               "autoRemoveNonPresent" : data['auto_remove_absent_vms'],
+               "autoAssignSettings" : { "mode" : "DISABLED"},
+               "vms": list(itertools.chain(data['ves'])),
+               "failRemainingBackupTasksExportThreshold": data['fail_remaining_backup_tasks_export_enabled'],
+               "failRemainingBackupTasksStoreThreshold": data['fail_remaining_backup_tasks_store_enabled'],
+               "tenantId" : self.request.user.tenant_id}
+        return utils.create_policy(data)
 
 

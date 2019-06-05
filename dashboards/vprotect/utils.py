@@ -81,15 +81,10 @@ def create_rule(name, schedule_guids, backup_destination_guids, policy_guid):
     headers = {'content-type': 'application/json'}
     return login().post(VPROTECT_API_URL + "/rules/vm-backup", data=json.dumps(payload), headers=headers)
 
-def create_policy(name, auto_remove_non_present, vm_guids, fail_remaining_backup_tasks_export_threshold, fail_remaining_backup_tasks_store_threshold):
-    payload = {"name" : name,
-                "autoRemoveNonPresent" : auto_remove_non_present,
-                "autoAssignSettings" : { "mode" : "DISABLED"},
-                "vms": vm_guids,
-                "failRemainingBackupTasksExportThreshold": fail_remaining_backup_tasks_export_threshold,
-                "failRemainingBackupTasksStoreThreshold": fail_remaining_backup_tasks_store_threshold}
+def create_policy(data):
+
     headers = {'content-type': 'application/json'}
-    return login().post(VPROTECT_API_URL + "/policies/vm-backup", data=json.dumps(payload), headers=headers)
+    return login().post(VPROTECT_API_URL + "/policies/vm-backup", data=json.dumps(data), headers=headers)
 
 def fetch_policies():
     response = login().get(VPROTECT_API_URL + "/policies/vm-backup")
