@@ -8,7 +8,12 @@ from horizon.utils import functions as horizon_utils
 import pytz
 import yaml
 
-CONFIG = yaml.load(open('openstack_dashboard/dashboards/vprotect/config.yaml', 'r'))
+try:
+    from json.decoder import JSONDecodeError
+except ImportError:
+    JSONDecodeError = ValueError
+
+CONFIG = yaml.safe_load(open('/usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/config.yaml', 'r'))
 VPROTECT_API_URL = CONFIG['REST_API_URL']
 USER = CONFIG['USER']
 PASSWORD = CONFIG['PASSWORD']
