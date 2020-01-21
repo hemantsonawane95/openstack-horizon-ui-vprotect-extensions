@@ -5,6 +5,7 @@ e.g. `python install.py http://localhost:8080/api admin vPr0tect`
 
 and then run `systemctl restart httpd` to apply changes by restarting Horizon on OpenStack.
 
+You can modify the vProtect URL anytime in /usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/config.yaml
 # Development
 
 See https://docs.openstack.org/horizon/latest/contributor/quickstart.html#setup.
