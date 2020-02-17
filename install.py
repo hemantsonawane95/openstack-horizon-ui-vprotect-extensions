@@ -16,13 +16,13 @@ def update_variable(state, variable):
 
 CONFIG_PATH = 'dashboards/vprotect/config.yaml'
 
-if len(sys.argv) == 2:
+if len(sys.argv) >= 2:
     update_variable(sys.argv[1], 'REST_API_URL')
 
-if len(sys.argv) == 3:
+if len(sys.argv) >= 3:
     update_variable(sys.argv[2], 'USER')
 
-if len(sys.argv) == 4:
+if len(sys.argv) >= 4:
     update_variable(sys.argv[3], 'PASSWORD')
 
 copy_tree('dashboards/vprotect/', '/usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/')
