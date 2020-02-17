@@ -10,4 +10,5 @@ If needed, the REST API URL and credentials can be modified in /usr/share/openst
 # Development
 
 See https://docs.openstack.org/horizon/latest/contributor/quickstart.html#setup.
-This plugin should be cloned in `openstack_dashboard`, which is inside the horizon folder (that means the file structure should be the same as in Horizon, since this plugin is just an extension).
+
+This plugin should be cloned in `openstack_dashboard` folder.
