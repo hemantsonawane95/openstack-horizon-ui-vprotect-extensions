@@ -7,7 +7,7 @@ from openstack_dashboard import api
 from horizon.utils import functions as horizon_utils
 import pytz
 import yaml
-
+import time
 try:
     from json.decoder import JSONDecodeError
 except ImportError:
@@ -132,7 +132,7 @@ def fetch_tasks(request):
 
 def convert_date_to_long(data):
     time_of_the_day = datetime.datetime.strptime(data.isoformat(), '%H:%M:%S')
-    return time_of_the_day.replace(year=time_of_the_day.year + 70).timestamp() * 1000
+    return time.mktime(time_of_the_day.replace(year=time_of_the_day.year + 70).timetuple()) * 1000
 
 def fetch_rules_for_policies(policy_guids):
     rules = []
