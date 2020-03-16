@@ -10,7 +10,7 @@ class Restore(forms.SelfHandlingForm):
     backup = forms.ChoiceField(label=_("Backup"), required = True)
     restored_name = forms.CharField(label=_("Virtual machine name (optional)"), required = False)
     restore_storage_id = forms.CharField(label=_("Volume pool (optional)"), required = False)
-    restore_project = forms.CharField(label=_("Target project"), required = True, default = "admin")
+    restore_project = forms.CharField(label=_("Target project"), required = True)
 
     error_message = _('Couldn\'t restore "%s".')
     success_message = _('Created restore task for instance "%s".')
@@ -25,6 +25,7 @@ class Restore(forms.SelfHandlingForm):
             backup = data['backup']
             restored_name = data['restored_name']
             restore_storage_id = data['restore_storage_id']
+            restore_project = data['restore_project']
             vm_guid = self.kwargs['initial']['instance_id']
             hypervisor_manager = utils.fetch_hypervisor_manager(backup)
             payload = { "backup" : backup,
