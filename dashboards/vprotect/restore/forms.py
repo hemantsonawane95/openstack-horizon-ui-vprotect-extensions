@@ -10,6 +10,7 @@ class Restore(forms.SelfHandlingForm):
     backup = forms.ChoiceField(label=_("Backup"), required = True)
     restored_name = forms.CharField(label=_("Virtual machine name (optional)"), required = False)
     restore_storage_id = forms.CharField(label=_("Volume pool (optional)"), required = False)
+    restore_project = forms.CharField(label=_("Target project"), required = true, default = "admin")
 
     error_message = _('Couldn\'t restore "%s".')
     success_message = _('Created restore task for instance "%s".')
@@ -31,6 +32,7 @@ class Restore(forms.SelfHandlingForm):
                         "hypervisorManager": { "guid" : hypervisor_manager[0]['guid'] },
                         "restoredPeName" : restored_name,
                         "restoreStorageId": restore_storage_id,
+                        "restoreProject": restore_project,
                         "tenantId" : self.request.user.tenant_id}
             restore_and_import_task = utils.create_restore_and_import_task(payload)
             messages.success(request, self.success_message % restore_and_import_task.json()['dstProtectedEntity']['name'])
