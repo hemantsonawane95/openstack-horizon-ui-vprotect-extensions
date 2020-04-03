@@ -17,6 +17,7 @@ class Restore(forms.SelfHandlingForm):
 
     def __init__(self, *args, **kwargs):
         super(Restore, self).__init__(*args, **kwargs)
+        self.fields['restore_project'].initial = self.request.user.tenant_name
         self.fields['backup'].choices = kwargs.get('initial', {}).get("backups", [])
         self.kwargs = kwargs
 
