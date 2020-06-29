@@ -25,7 +25,9 @@ class SetDetailsAction(workflows.Action):
                 'class': 'switched',
                 'data-switch-on': 'source',
                 'data-source-time': _('Time of the day')
-            }),
+            },
+            format='%H:%M'
+        ),
         label=_("Time of the day"),
         initial = datetime.datetime.now(),
         required=False)

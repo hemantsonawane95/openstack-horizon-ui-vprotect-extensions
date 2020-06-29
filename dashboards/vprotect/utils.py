@@ -128,7 +128,7 @@ def fetch_rules_for_policy(policy_guid):
     return rules
 
 def fetch_tasks(request):
-    return login().get(VPROTECT_API_URL + "/tasks?tenant-id=" + request.user.tenant_id)
+    return login().get(VPROTECT_API_URL + "/tasks")
 
 def convert_date_to_long(data):
     time_of_the_day = datetime.datetime.strptime(data.isoformat(), '%H:%M:%S')
