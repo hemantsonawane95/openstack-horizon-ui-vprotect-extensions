@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+<!--{% block title %}{% trans "Backup" %}{% endblock %}-->
+
+{% block page_header %}
+   {% include "horizon/common/_page_header.html" with title=_("Virtual Environments") %}
+{% endblock page_header %}
+
+{% block main %}
+<div class="row">
+   <div class="col-sm-12">
+      <div id="app"></div>
+      <script type="text/javascript" src="./../../static/vprotect/index.js" async></script>
+<!--   {{ tab_group.render }}-->
+   </div>
+</div>
+{% endblock %}
