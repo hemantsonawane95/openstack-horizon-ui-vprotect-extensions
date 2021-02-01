@@ -17,7 +17,7 @@ import horizon
 from openstack_dashboard.dashboards.vprotect import dashboard
 
 class VirtualEnvironments(horizon.Panel):
-    name = _("Virtual Environments")
+    name = _("Instances")
     slug = "virtualEnvironments"
 
 dashboard.VProtect.register(VirtualEnvironments)

@@ -10,11 +10,14 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from django.conf.urls import url
+from django.utils.translation import ugettext_lazy as _
 
-from openstack_dashboard.dashboards.vprotect.policies import views
+import horizon
 
+from openstack_dashboard.dashboards.vprotect import dashboard
 
-urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index')
-]
+class PoliciesAndSchedules(horizon.Panel):
+    name = _("Backup SLAs")
+    slug = "policiesAndSchedules"
+
+dashboard.VProtect.register(PoliciesAndSchedules)

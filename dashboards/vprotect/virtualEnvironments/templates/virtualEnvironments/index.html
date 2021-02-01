@@ -3,14 +3,18 @@
 <!--{% block title %}{% trans "Backup" %}{% endblock %}-->
 
 {% block page_header %}
-   {% include "horizon/common/_page_header.html" with title=_("Virtual Environments") %}
+   {% include "horizon/common/_page_header.html" with title=_("Instances") %}
 {% endblock page_header %}
 
 {% block main %}
 <div class="row">
    <div class="col-sm-12">
-      <div id="app"></div>
-      <script type="text/javascript" src="./../../static/vprotect/index.js" async></script>
+      <iframe src="/dashboard/static/vprotect/index.html"
+              style="
+                     width: 100%;
+                     height: 100vh;
+      ">
+      </iframe>
 <!--   {{ tab_group.render }}-->
    </div>
 </div>

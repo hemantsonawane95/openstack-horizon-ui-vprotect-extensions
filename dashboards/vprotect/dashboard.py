@@ -20,7 +20,7 @@ import horizon
 class VirtualEnvironmentsGroup(horizon.PanelGroup):
     slug = "virtualEnvironmentsGroup"
     name = _("Virtual Environments")
-    panels = ('virtualEnvironments', 'policies', 'schedules', 'mountedBackups')
+    panels = ('virtualEnvironments', 'policiesAndSchedules', 'mountedBackups')
 
 
 class DashboardGroup(horizon.PanelGroup):
