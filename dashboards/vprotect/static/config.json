@@ -1,5 +1,5 @@
 {
-  "vProtectURL": "http://10.40.0.54:8080/",
+  "vProtectURL": "https://10.40.0.54:8181/api",
   "username": "admin",
   "password": "vPr0tect"
 }
