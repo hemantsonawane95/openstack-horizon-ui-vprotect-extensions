@@ -1,8 +1,8 @@
 from django.views import generic
-from django.http import JsonResponse
-from django.core import serializers
+from django.http import HttpResponse, JsonResponse
 import requests
 import yaml
+import json
 
 CONFIG = yaml.safe_load(open('/usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/config.yaml', 'r'))
 VPROTECT_API_URL = CONFIG['REST_API_URL']
@@ -27,12 +27,38 @@ def login():
     session.post(VPROTECT_API_URL + '/session/login', data=json.dumps(payload), headers=headers)
     return session
 
-def json(request):
+def apiProxy(request):
     url = request.build_absolute_uri()
-    if request.method == 'POST':
-        #login().get(VPROTECT_API_URL + ).json()
-        return JsonResponse({url: url})
-    else:
-        return render(request,'accounts/register.html')
+    pathIndex = url.find("api")
+    vprotectPath = url[pathIndex+3:]
+    response = None
+    headers = {'content-type': 'application/json'}
+    queryParamSeparator = None
 
-    # return JsonResponse(request.decode('utf-8'), safe=False)
+    if vprotectPath.find("?") == -1:
+        queryParamSeparator = "?"
+    else:
+        queryParamSeparator = "&"
+
+    path = VPROTECT_API_URL + vprotectPath + queryParamSeparator + "projectId=" + request.user.tenant_id
+
+    if request.method == "GET":
+        response = login().get(path)
+    if request.method == "POST":
+        response = login().post(path, request.body, headers=headers)
+    if request.method == "PUT":
+        response = login().put(path, request.body, headers=headers)
+    if request.method == "DELETE":
+        response = login().delete(path)
+
+    return JsonResponse(response.json(), status=response.status_code, safe=False)
+
+def userInfo(request):
+    payload = {
+        "login": CONFIG['USER'],
+        "password": CONFIG['PASSWORD']
+    }
+    headers = {'content-type': 'application/json'}
+    response = login().post(VPROTECT_API_URL + '/session/login', json.dumps(payload), headers=headers)
+
+    return JsonResponse(response.json(), status=response.status_code, safe=False)

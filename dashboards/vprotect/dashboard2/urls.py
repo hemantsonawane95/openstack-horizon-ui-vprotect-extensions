@@ -18,5 +18,6 @@ from openstack_dashboard.dashboards.vprotect.dashboard2 import views
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     # url(r'^(?P<schedule_id>[^/]+)/edit-schedule$', views.JsonView.as_view(), name='edit-schedule'),
-    url(r'^json$', views.json, name='json'),
+    url(r'^api/user-info', views.userInfo, name='userInfo'),
+    url(r'^api', views.apiProxy, name='apiProxy'),
 ]
