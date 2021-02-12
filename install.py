@@ -4,6 +4,7 @@
 import shutil
 import sys
 import yaml
+import requests, zipfile, io
 from distutils.dir_util import copy_tree
 
 def update_variable(state, variable):
@@ -25,6 +26,10 @@ if len(sys.argv) >= 3:
 
 if len(sys.argv) >= 4:
     update_variable(sys.argv[3], 'PASSWORD')
+
+r = requests.get("https://github.com/Storware/ovirt-engine-ui-vprotect-extensions/releases/download/openstack/openstack.zip")
+z = zipfile.ZipFile(io.BytesIO(r.content))
+z.extractall("dashboards/vprotect/static/vprotect")
 
 copy_tree('dashboards/vprotect/', '/usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/')
 shutil.copyfile('enabled/_50_vprotect.py', '/usr/share/openstack-dashboard/openstack_dashboard/enabled/_50_vprotect.py')
