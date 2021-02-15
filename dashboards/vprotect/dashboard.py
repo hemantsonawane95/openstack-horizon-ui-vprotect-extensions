@@ -14,10 +14,31 @@ from django.utils.translation import ugettext_lazy as _
 
 import horizon
 
+# from dashboards.vprotect.dashboard2.panel import Dashboard2
+
+
+class VirtualEnvironmentsGroup(horizon.PanelGroup):
+    slug = "virtualEnvironmentsGroup"
+    name = _("Virtual Environments")
+    panels = ('virtualEnvironments', 'policiesAndSchedules', 'mountedBackups')
+
+
+class DashboardGroup(horizon.PanelGroup):
+    slug = "dashboardGroup"
+    name = _("Dashboard")
+    panels = ('dashboard2',)
+
+
+class TaskConsoleGroup(horizon.PanelGroup):
+    slug = "taskConsoleGroup"
+    name = _("Task Console")
+    panels = ('taskConsole',)
+
+
 class VProtect(horizon.Dashboard):
     name = _("vProtect")
     slug = "vprotect"
-    panels = ('backup','restore','schedule', 'tasks')
-    default_panel = 'backup'
+    panels = (DashboardGroup, VirtualEnvironmentsGroup, TaskConsoleGroup,)
+    default_panel = "dashboard2"
 
 horizon.register(VProtect)
