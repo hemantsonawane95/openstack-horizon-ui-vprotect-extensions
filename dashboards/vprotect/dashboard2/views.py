@@ -40,7 +40,7 @@ def apiProxy(request):
     else:
         queryParamSeparator = "&"
 
-    path = VPROTECT_API_URL + vprotectPath + queryParamSeparator + "projectId=" + request.user.tenant_id
+    path = VPROTECT_API_URL + vprotectPath + queryParamSeparator + "project-uuid=" + request.user.tenant_id
 
     if request.method == "GET":
         response = login().get(path)
