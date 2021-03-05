@@ -25,7 +25,7 @@ class VirtualEnvironmentsGroup(horizon.PanelGroup):
 
 class DashboardGroup(horizon.PanelGroup):
     slug = "dashboardGroup"
-    name = _("Dashboard")
+    name = _("Overview")
     panels = ('dashboard2',)
 
 
