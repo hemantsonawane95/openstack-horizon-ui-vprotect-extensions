@@ -12,7 +12,7 @@
 
 from django.conf.urls import url
 
-from openstack_dashboard.dashboards.vprotect.mountedBackups import views
+from openstack_dashboard.dashboards.vprotect.mounted_backups import views
 
 
 urlpatterns = [

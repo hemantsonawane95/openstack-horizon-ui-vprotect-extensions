@@ -12,7 +12,7 @@
 
 from django.conf.urls import url
 
-from openstack_dashboard.dashboards.vprotect.taskConsole import views
+from openstack_dashboard.dashboards.vprotect.task_console import views
 
 
 urlpatterns = [
