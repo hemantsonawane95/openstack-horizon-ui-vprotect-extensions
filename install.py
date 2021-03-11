@@ -30,6 +30,7 @@ if len(sys.argv) >= 4:
 r = requests.get("https://github.com/Storware/ovirt-engine-ui-vprotect-extensions/releases/download/openstack/openstack.zip")
 z = zipfile.ZipFile(io.BytesIO(r.content))
 z.extractall("dashboards/vprotect/static/vprotect")
+z.extractall("/usr/share/openstack-dashboard/static/vprotect")
 
 copy_tree('dashboards/vprotect/', '/usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/')
 shutil.copyfile('enabled/_50_vprotect.py', '/usr/share/openstack-dashboard/openstack_dashboard/enabled/_50_vprotect.py')
