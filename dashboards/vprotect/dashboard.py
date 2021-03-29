@@ -10,7 +10,7 @@ class VirtualEnvironmentsGroup(horizon.PanelGroup):
 class DashboardGroup(horizon.PanelGroup):
     slug = "dashboardGroup"
     name = _("Overview")
-    panels = ('dashboard2',)
+    panels = ('dashboard2', 'reporting',)
 
 class TaskConsoleGroup(horizon.PanelGroup):
     slug = "taskConsoleGroup"
