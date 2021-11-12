@@ -6,6 +6,7 @@ import sys
 import yaml
 import requests, zipfile, io
 from distutils.dir_util import copy_tree
+import os
 
 def update_variable(state, variable):
     with open(CONFIG_PATH) as f:
@@ -31,6 +32,11 @@ r = requests.get("https://github.com/Storware/ovirt-engine-ui-vprotect-extension
 z = zipfile.ZipFile(io.BytesIO(r.content))
 z.extractall("dashboards/vprotect/static/vprotect")
 z.extractall("/usr/share/openstack-dashboard/static/vprotect")
+
+path = '/usr/share/openstack-dashboard/openstack_dashboard/enabled'
+isExist = os.path.exists(path)
+if not isExist:
+    os.makedirs(path)
 
 copy_tree('dashboards/vprotect/', '/usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/')
 shutil.copyfile('enabled/_50_vprotect.py', '/usr/share/openstack-dashboard/openstack_dashboard/enabled/_50_vprotect.py')
