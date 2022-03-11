@@ -40,7 +40,7 @@ option, index = pick(list(versionsNames), "Select a version", indicator='=>')
 
 if option:
     downloadPath = versions.json()[index]['assets'][0]['browser_download_url']
-    r = requests.get("https://github.com/Storware/ovirt-engine-ui-vprotect-extensions/releases/download/openstack/openstack.zip")
+    r = requests.get(downloadPath)
 
     z = zipfile.ZipFile(io.BytesIO(r.content))
     z.extractall("dashboards/vprotect/static/vprotect")
