@@ -22,6 +22,9 @@ def update_variable(state, variable):
 def getReleaseLabel(release):
     return release['name'] + " " + release['body']
 
+def getFilename(asset):
+    return asset['name']
+
 CONFIG_PATH = 'dashboards/vprotect/config.yaml'
 
 if len(sys.argv) >= 2:
@@ -36,10 +39,14 @@ if len(sys.argv) >= 4:
 versions = requests.get("https://api.github.com/repos/Storware/ovirt-engine-ui-vprotect-extensions/releases")
 versionsNames = map(getReleaseLabel, versions.json())
 
-option, index = pick(list(versionsNames), "Select a version", indicator='=>')
+version, versionIndex = pick(list(versionsNames), "Select a version", indicator='=>')
 
-if option:
-    downloadPath = versions.json()[index]['assets'][0]['browser_download_url']
+filesNames = map(getFilename, versions.json()[versionIndex]['assets'])
+file, fileIndex = pick(list(filesNames), "Select a file", indicator='=>')
+
+if version and file:
+    downloadPath = versions.json()[versionIndex]['assets'][fileIndex]['browser_download_url']
+    print(f'Downloading {downloadPath}')
     r = requests.get(downloadPath)
 
     z = zipfile.ZipFile(io.BytesIO(r.content))
