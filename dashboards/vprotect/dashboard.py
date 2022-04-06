@@ -18,8 +18,8 @@ class TaskConsoleGroup(horizon.PanelGroup):
     panels = ('task_console',)
 
 class VProtect(horizon.Dashboard):
-    name = _("vProtect")
-    slug = "vprotect"
+    name = _("Backup & Recovery")
+    slug = "backup"
     panels = (DashboardGroup, VirtualEnvironmentsGroup, TaskConsoleGroup,)
     default_panel = "dashboard2"
 
