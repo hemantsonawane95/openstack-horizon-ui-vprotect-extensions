@@ -27,7 +27,7 @@ def login():
     }
     headers = {'content-type': 'application/json'}
     session = requests.Session()
-    session.post(VPROTECT_API_URL + '/session/login', data=json.dumps(payload), headers=headers)
+    session.post(VPROTECT_API_URL + '/session/login', data=json.dumps(payload), headers=headers, verify=False)
     return session
 
 
