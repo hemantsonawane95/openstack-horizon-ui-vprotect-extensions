@@ -63,7 +63,7 @@ def apiProxy(request):
     elif request.method == "DELETE":
         response = login().delete(path)
 
-    if any(endpoint in ['download', 'report-pdf', 'report-html'] for endpoint in path):
+    if is_endpoint_contentable(path):
         response2 = HttpResponse(response.content)
         response2['Content-Type'] = response.headers['Content-Type']
         response2['Content-Disposition'] = response.headers['Content-Disposition']
@@ -73,6 +73,8 @@ def apiProxy(request):
     else:
         return HttpResponse(response.content)
 
+def is_endpoint_contentable(url):
+    return any(elem in url for elem in ['download', 'report-pdf', 'report-html'])
 
 def is_json_content(response):
     return "content-type" in response.headers and response.headers["content-type"].strip().startswith("application/json")
