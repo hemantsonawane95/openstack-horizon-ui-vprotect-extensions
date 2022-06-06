@@ -19,7 +19,7 @@ def update_variable(state, variable):
         yaml.safe_dump(doc, f, default_flow_style=False)
 
 def getReleaseLabel(release):
-    return release['name'] + " " + release['body']
+    return release['name']
 
 CONFIG_PATH = 'dashboards/vprotect/config.yaml'
 RELEASES_API = 'https://api.github.com/repos/Storware/ovirt-engine-ui-vprotect-extensions/releases'
