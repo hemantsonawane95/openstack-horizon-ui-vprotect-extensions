@@ -15,7 +15,7 @@ class DashboardGroup(horizon.PanelGroup):
 class TaskConsoleGroup(horizon.PanelGroup):
     slug = "taskConsoleGroup"
     name = _("Task Console")
-    panels = ('task_console',)
+    panels = ('task_console','workflow_execution')
 
 class SettingsGroup(horizon.PanelGroup):
     slug = "settingsGroup"
