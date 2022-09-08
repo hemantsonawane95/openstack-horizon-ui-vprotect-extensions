@@ -10,14 +10,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from django.utils.translation import ugettext_lazy as _
-
 import horizon
 
 from openstack_dashboard.dashboards.vprotect import dashboard
 
 class TaskConsole(horizon.Panel):
-    name = _("Task Console")
+    name = "Task Console"
     slug = "task_console"
 
 dashboard.VProtect.register(TaskConsole)

@@ -9,15 +9,12 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-
-from django.utils.translation import ugettext_lazy as _
-
 import horizon
 
 from openstack_dashboard.dashboards.vprotect import dashboard
 
 class Dashboard2(horizon.Panel):
-    name = _("Dashboard")
+    name = "Dashboard"
     slug = "dashboard2"
 
 dashboard.VProtect.register(Dashboard2)
