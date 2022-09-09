@@ -1,13 +1,11 @@
-
-#!/usr/bin/env bash
-
+import os
 import shutil
 import sys
 import yaml
 import requests, zipfile, io
 from distutils.dir_util import copy_tree
-import os
-
+from importlib.metadata import version as ver
+from pick import pick
 
 def update_variable(state, variable):
     with open(CONFIG_PATH) as f:
@@ -44,12 +42,17 @@ if len(sys.argv) >= 5:
     else:
         VERSION_DATA = r.json()
 else:
-    from pick import pick
     versions = requests.get(RELEASES_API)
     versionsNames = map(getReleaseLabel, versions.json())
-    option, index = pick(list(versionsNames), "Select a version", indicator='=>')
+    
+    if ver('pick').startswith('1.3'):
+        option, index = pick(list(versionsNames), "Select a version", indicator='=>', multiselect=False)[0]
+    else:
+        option, index = pick(list(versionsNames), "Select a version", indicator='=>', multiselect=False)
+    
     if option:
         VERSION_DATA = versions.json()[index]
+
 
 if VERSION_DATA.get('assets'):
     openstackUrl = VERSION_DATA['assets'][0]['browser_download_url']
