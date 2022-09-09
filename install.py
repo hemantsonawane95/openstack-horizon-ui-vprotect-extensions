@@ -4,7 +4,6 @@ import sys
 import yaml
 import requests, zipfile, io
 from distutils.dir_util import copy_tree
-from importlib.metadata import version as ver
 from pick import pick
 
 def update_variable(state, variable):
@@ -44,12 +43,12 @@ if len(sys.argv) >= 5:
 else:
     versions = requests.get(RELEASES_API)
     versionsNames = map(getReleaseLabel, versions.json())
-    
-    if ver('pick').startswith('1.3'):
-        option, index = pick(list(versionsNames), "Select a version", indicator='=>', multiselect=False)[0]
+    result = pick(list(versionsNames), "Select a version", indicator='=>', multiselect=False)
+    if type(result) == list:
+        option, index = result[0] 
     else:
-        option, index = pick(list(versionsNames), "Select a version", indicator='=>', multiselect=False)
-    
+        option, index = result
+        
     if option:
         VERSION_DATA = versions.json()[index]
 
