@@ -1,3 +1,6 @@
+
+#!/usr/bin/env bash
+
 import os
 import shutil
 import sys
