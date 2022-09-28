@@ -13,7 +13,7 @@ class DashboardGroup(horizon.PanelGroup):
 class TaskConsoleGroup(horizon.PanelGroup):
     slug = "taskConsoleGroup"
     name = "Task Console"
-    panels = ('task_console')
+    panels = ('task_console',)
 
 class SettingsGroup(horizon.PanelGroup):
     slug = "settingsGroup"
