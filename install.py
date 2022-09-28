@@ -13,11 +13,11 @@ def install_dashboard_menu(ver: str = '5.1'):
     try:
         shutil.copyfile(f'dashboard_{ver}.py', 'dashboards/vprotect/dashboard.py')
     except FileNotFoundError:
-        print('Error: Plugin version not recognised - release name should start with "v5.1" or "v5.0".')
+        raise FileNotFoundError('Plugin version not recognised - release name should start with "v5.1" or "v5.0".')
     # other solution in case of different versions in the future:
     #   if ver not in ['5.1', '5.0']:
     #       shutil.copyfile('dashboard_5.1.py', 'dashboards/vprotect/dashboard.py')
-    
+
 def update_variable(state, variable):
     with open(CONFIG_PATH) as f:
         doc = yaml.safe_load(f)
