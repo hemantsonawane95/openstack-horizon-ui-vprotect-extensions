@@ -14,15 +14,6 @@ class TaskConsoleGroup(horizon.PanelGroup):
     slug = "taskConsoleGroup"
     name = "Task Console"
     panels = ('task_console','workflow_execution')
-    
-# if version == 5.0.0
-"""
-class TaskConsoleGroup(horizon.PanelGroup):
-    slug = "taskConsoleGroup"
-    name = "Task Console"
-    panels = ('task_console')
-    
-"""
 
 class SettingsGroup(horizon.PanelGroup):
     slug = "settingsGroup"
