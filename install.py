@@ -9,6 +9,15 @@ import requests, zipfile, io
 from distutils.dir_util import copy_tree
 from pick import pick
 
+def install_dashboard_menu(ver: str = '5.1'):
+    try:
+        shutil.copyfile(f'dashboard_{ver}.py', 'dashboards/vprotect/dashboard.py')
+    except FileNotFoundError:
+        raise FileNotFoundError('Plugin version not recognised - release name should start with "v5.1" or "v5.0".')
+    # other solution in case of different versions in the future:
+    #   if ver not in ['5.1', '5.0']:
+    #       shutil.copyfile('dashboard_5.1.py', 'dashboards/vprotect/dashboard.py')
+
 def update_variable(state, variable):
     with open(CONFIG_PATH) as f:
         doc = yaml.safe_load(f)
@@ -48,11 +57,12 @@ else:
     versionsNames = map(getReleaseLabel, versions.json())
     result = pick(list(versionsNames), "Select a version", indicator='=>', multiselect=False)
     if type(result) == list:
-        option, index = result[0] 
+        option, index = result[0]
     else:
         option, index = result
-        
+
     if option:
+        install_dashboard_menu(option[1:4])
         VERSION_DATA = versions.json()[index]
 
 
