@@ -18,7 +18,7 @@ def install_dashboard_menu(ver = '5.1'):
     try:
         shutil.copyfile('dashboard_'+ver+'.py', 'dashboards/vprotect/dashboard.py')
     except FileNotFoundError:
-        print('Version has been not detected - using 5.1 dashboard file.')
+        print('Dashboard file version not detected - using the default 5.1.0 dashboard file. This is expected behavior if not using 5.0.0 plugin version.')
         shutil.copyfile('dashboard_5.1.py', 'dashboards/vprotect/dashboard.py')
 
 def update_variable(state, variable):
