@@ -55,7 +55,7 @@ def apiProxy(request):
     path = VPROTECT_API_URL + vprotectPath + queryParamSeparator + "project-uuid=" + request.user.tenant_id
 
     if request.method == "GET":
-        response = login().get(path)
+        response = login().get(path, headers={'3rd-party': 'HORIZON', '3rd-party-project': request.user.tenant_id})
     elif request.method == "POST":
         response = login().post(path, request.body, headers=headers)
     elif request.method == "PUT":
