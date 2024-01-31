@@ -3,6 +3,7 @@ import requests
 import yaml
 from django.http import HttpResponse, JsonResponse
 from django.views import generic
+from urllib.parse import unquote
 
 CONFIG = yaml.safe_load(open('/usr/share/openstack-dashboard/openstack_dashboard/dashboards/vprotect/config.yaml', 'r'))
 VPROTECT_API_URL = CONFIG['REST_API_URL']
@@ -39,6 +40,17 @@ def is_json(myjson):
     return True
 
 
+
+def remove_project_query_params(url):
+    base_url, _, params = url.partition('?')
+    decoded_params = unquote(params)
+    param_pairs = decoded_params.split('&')
+    filtered_params = [param for param in param_pairs if 'project' not in param.split('=')[0].lower()]
+    modified_params = '&'.join(filtered_params)
+    return base_url + '?' + modified_params if modified_params else base_url
+
+
+
 def apiProxy(request):
     url = request.build_absolute_uri()
     pathIndex = url.find("api")
@@ -53,7 +65,7 @@ def apiProxy(request):
     else:
         queryParamSeparator = "&"
 
-    path = VPROTECT_API_URL + vprotectPath + queryParamSeparator + "project-uuid=" + request.user.tenant_id
+    path = remove_project_query_params(VPROTECT_API_URL) + remove_project_query_params(vprotectPath) + queryParamSeparator + "project-uuid=" + request.user.tenant_id
 
     if request.method == "GET":
         response = login().get(path, headers=headers3rd)
