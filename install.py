@@ -74,7 +74,7 @@ if VERSION_DATA.get('assets'):
 
     z = zipfile.ZipFile(io.BytesIO(package.content))
     z.extractall("dashboards/vprotect/static/vprotect")
-    z.extractall("/var/lib/openstack/lib/python3.8/site-packages/vprotect")
+    z.extractall("/usr/share/openstack-dashboard/static/vprotect")
 
     path = '/var/lib/openstack/lib/python3.8/site-packages/openstack_dashboard/enabled'
     isExist = os.path.exists(path)
