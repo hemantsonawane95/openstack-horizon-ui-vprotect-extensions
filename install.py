@@ -76,10 +76,10 @@ if VERSION_DATA.get('assets'):
     z.extractall("dashboards/vprotect/static/vprotect")
     z.extractall("/var/lib/openstack/lib/python3.8/site-packages/openstack_dashboard/static/vprotect")
 
-    path = '/var/lib/openstack/lib/python3.8/site-packages/openstack_dashboard/enabled'
+    path = '/var/lib/openstack/lib/python3.8/site-packages/openstack_dashboard/local/enabled'
     isExist = os.path.exists(path)
     if not isExist:
         os.makedirs(path)
 
     copy_tree('dashboards/vprotect/', '/var/lib/openstack/lib/python3.8/site-packages/openstack_dashboard/dashboards/vprotect')
-    shutil.copyfile('enabled/_50_vprotect.py', '/var/lib/openstack/lib/python3.8/site-packages/openstack_dashboard/enabled/_50_vprotect.py')
+    shutil.copyfile('enabled/_50_vprotect.py', '/var/lib/openstack/lib/python3.8/site-packages/openstack_dashboard/local/enabled/_50_vprotect.py')
